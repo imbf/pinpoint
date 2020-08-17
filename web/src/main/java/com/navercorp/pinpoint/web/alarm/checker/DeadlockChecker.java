@@ -19,6 +19,7 @@ package com.navercorp.pinpoint.web.alarm.checker;
 import com.navercorp.pinpoint.web.alarm.collector.AgentEventDataCollector;
 import com.navercorp.pinpoint.web.alarm.vo.Rule;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -66,4 +67,12 @@ public class DeadlockChecker extends AgentChecker<Boolean> {
         return message.toString();
     }
 
+    @Override
+    public List<String> getWebHookMessages() {
+        List<String> messages = new ArrayList<>();
+        for (Map.Entry<String, Boolean> detected : detectedAgents.entrySet()) {
+            messages.add(String.format(" Value of agent(%s) has deadlocked thread during the past 5 mins.", detected.getKey()));
+        }
+        return messages;
+    }
 }

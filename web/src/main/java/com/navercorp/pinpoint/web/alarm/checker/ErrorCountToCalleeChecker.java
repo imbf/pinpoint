@@ -20,6 +20,9 @@ import com.navercorp.pinpoint.web.alarm.collector.MapStatisticsCallerDataCollect
 import com.navercorp.pinpoint.web.alarm.collector.MapStatisticsCallerDataCollector.DataCategory;
 import com.navercorp.pinpoint.web.alarm.vo.Rule;
 
+import java.util.Arrays;
+import java.util.List;
+
 /**
  * @author minwoo.jung
  */
@@ -40,4 +43,8 @@ public class ErrorCountToCalleeChecker extends LongValueAlarmChecker {
         return String.format("%s value is %s%s during the past 5 mins.(Threshold : %s%s) %s For From '%s' To '%s'.<br>", rule.getCheckerName(), getDetectedValue(), unit, rule.getThreshold(), unit, rule.getCheckerName(), rule.getApplicationId(), rule.getNotes());
     }
 
+    @Override
+    public List<String> getWebHookMessages() {
+        return Arrays.asList(String.format("%s value is %s%s during the past 5 mins.(Threshold : %s%s) %s For From '%s' To '%s'.", rule.getCheckerName(), getDetectedValue(), unit, rule.getThreshold(), unit, rule.getCheckerName(), rule.getApplicationId(), rule.getNotes()));
+    }
 }

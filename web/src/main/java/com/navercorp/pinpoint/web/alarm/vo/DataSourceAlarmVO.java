@@ -16,6 +16,8 @@
 
 package com.navercorp.pinpoint.web.alarm.vo;
 
+import java.util.Objects;
+
 /**
  * @author Taejin Koo
  */
@@ -52,7 +54,7 @@ public class DataSourceAlarmVO {
 
         if (id != that.id) return false;
         if (connectionUsedRate != that.connectionUsedRate) return false;
-        return databaseName != null ? databaseName.equals(that.databaseName) : that.databaseName == null;
+        return Objects.equals(databaseName, that.databaseName);
 
     }
 

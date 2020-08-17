@@ -20,6 +20,7 @@ import com.navercorp.pinpoint.web.alarm.collector.DataSourceDataCollector;
 import com.navercorp.pinpoint.web.alarm.vo.DataSourceAlarmVO;
 import com.navercorp.pinpoint.web.alarm.vo.Rule;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -86,4 +87,16 @@ public class DataSourceConnectionUsageRateChecker extends AgentChecker<List<Data
         return message.toString();
     }
 
+    @Override
+    public List<String> getWebHookMessages() {
+        List<String> messages = new ArrayList<>();
+        for (Map.Entry<String, List<DataSourceAlarmVO>> detected : detectedAgents.entrySet()) {
+            for (DataSourceAlarmVO dataSourceAlarmVO : detected.getValue()) {
+                if (decideResult0(dataSourceAlarmVO)) {
+                    messages.add(String.format(" Value of agent(%s) has %s%s(DataSource %s connection pool usage) during the past 5 mins.(Threshold : %s%s)", detected.getKey(), dataSourceAlarmVO.getConnectionUsedRate(), unit, dataSourceAlarmVO.getDatabaseName(), rule.getThreshold(), unit));
+                }
+            }
+        }
+        return messages;
+    }
 }

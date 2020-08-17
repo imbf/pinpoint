@@ -41,6 +41,9 @@ public class BatchConfiguration {
     @Value("${alarm.mail.server.url}")
     private String emailServerUrl;
 
+    @Value("${alarm.web.hook.receiver.url}")
+    private String webHookReceiverUrl;
+
     @Value("${alarm.mail.sender.address}")
     private String senderEmailAddress;
 
@@ -110,6 +113,10 @@ public class BatchConfiguration {
 
     public List<String> getFlinkServerList() {
         return Arrays.asList(flinkServerList);
+    }
+
+    public String getWebHookReceiverUrl() {
+        return webHookReceiverUrl;
     }
 
     public String getEmailServerUrl() {

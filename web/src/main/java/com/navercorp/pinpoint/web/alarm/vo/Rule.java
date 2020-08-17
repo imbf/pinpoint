@@ -29,9 +29,15 @@ public class Rule {
     private String userGroupId;
     private boolean smsSend;
     private boolean emailSend;
+    private boolean webHook = true;
     private String notes;
 
     public Rule() {
+    }
+
+    public Rule(String applicationId, String serviceType, String checkerName, Integer Threshold, String userGroupId, boolean smsSend, boolean emailSend, String notes, boolean webHook) {
+        this(applicationId, serviceType, checkerName, Threshold, userGroupId, smsSend, emailSend, notes);
+        this.webHook = webHook;
     }
 
     public Rule(String applicationId, String serviceType, String checkerName, Integer Threshold, String userGroupId, boolean smsSend, boolean emailSend, String notes) {
@@ -60,7 +66,7 @@ public class Rule {
     public void setServiceType(String serviceType) {
         this.serviceType = serviceType;
     }
-    
+
     public String getCheckerName() {
         return checkerName;
     }
@@ -101,6 +107,14 @@ public class Rule {
         this.emailSend = emailSend;
     }
 
+    public boolean isWebHook() {
+        return webHook;
+    }
+
+    public void setWebHook(boolean webHook) {
+        this.webHook = webHook;
+    }
+
     public String getRuleId() {
         return ruleId;
     }
@@ -132,4 +146,5 @@ public class Rule {
         sb.append('}');
         return sb.toString();
     }
+
 }
