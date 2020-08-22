@@ -28,7 +28,7 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * @author minwoo.jung<minwoo.jung @ navercorp.com>
+ * @author minwoo.jung<minwoo.jung@navercorp.com>
  */
 @Configuration
 public class BatchConfiguration {

@@ -16,46 +16,64 @@
 package com.navercorp.pinpoint.web.alarm;
 
 import com.navercorp.pinpoint.web.alarm.checker.AlarmChecker;
+import com.navercorp.pinpoint.web.alarm.vo.WebHookPayload;
 import com.navercorp.pinpoint.web.batch.BatchConfiguration;
 import com.navercorp.pinpoint.web.service.UserGroupService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.batch.core.StepExecution;
-import org.springframework.mail.javamail.JavaMailSenderImpl;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.MediaType;
+import org.springframework.web.client.RestTemplate;
 
-import javax.mail.Message;
-import javax.mail.internet.AddressException;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeMessage;
+import java.net.URI;
 import java.util.List;
 import java.util.Objects;
 
-/**
- * @author ran
- */
 public class SpringWebhookSender implements WebhookSender {
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
     private final UserGroupService userGroupService;
-    private final String batchEnv;
+    private final BatchConfiguration batchConfiguration;
+    private final RestTemplate springRestTemplate;
     private final String webhookReceiverUrl;
-    private final String pinpointUrl;
     private final boolean webhookEnable;
 
-    public SpringWebhookSender(BatchConfiguration batchConfiguration, UserGroupService userGroupService, JavaMailSenderImpl springMailSender) {
+    public SpringWebhookSender(BatchConfiguration batchConfiguration, UserGroupService userGroupService, RestTemplate springRestTemplate) {
         Objects.requireNonNull(batchConfiguration, "batchConfiguration");
         Objects.requireNonNull(userGroupService, "userGroupService");
-        Objects.requireNonNull(springMailSender, "mailSender");
+        Objects.requireNonNull(springRestTemplate, "springRestTemplate");
 
-        this.pinpointUrl = batchConfiguration.getPinpointUrl();
-        this.batchEnv = batchConfiguration.getBatchEnv();
+        this.batchConfiguration = batchConfiguration;
         this.userGroupService = userGroupService;
         this.webhookReceiverUrl = batchConfiguration.getWebhookReceiverUrl();
         this.webhookEnable = batchConfiguration.getWebhookEnable();
+        this.springRestTemplate = springRestTemplate;
     }
 
     @Override
     public void sendWebhook(AlarmChecker checker, int sequenceCount, StepExecution stepExecution) {
-        
+        List<String> receivers = userGroupService.selectEmailOfMember(checker.getuserGroupId());
+
+        if (receivers.size() == 0) {
+            return;
+        }
+        if (!webhookEnable) {
+            return;
+        }
+
+        try {
+            WebHookPayload webHookPayload = new WebHookPayload(checker, batchConfiguration, sequenceCount);
+            HttpHeaders httpHeaders = new HttpHeaders();
+            httpHeaders.setContentType(MediaType.APPLICATION_JSON);
+
+            HttpEntity<WebHookPayload> httpEntity = new HttpEntity<>(webHookPayload, httpHeaders);
+            springRestTemplate.exchange(new URI(webhookReceiverUrl), HttpMethod.POST, httpEntity, String.class);
+            logger.info("send WebHook : {}", checker.getRule());
+        } catch (Exception e) {
+            logger.error("can't send WebHook. {}", checker.getRule(), e);
+        }
     }
 }
