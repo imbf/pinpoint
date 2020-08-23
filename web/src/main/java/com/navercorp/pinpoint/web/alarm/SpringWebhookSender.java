@@ -56,7 +56,7 @@ public class SpringWebhookSender implements WebhookSender {
     }
 
     @Override
-    public void sendWebhook(AlarmChecker checker, int sequenceCount, StepExecution stepExecution) {
+    public void triggerWebhook(AlarmChecker checker, int sequenceCount, StepExecution stepExecution) {
         if (webhookReceiverUrl.isEmpty()) {
             return;
         }

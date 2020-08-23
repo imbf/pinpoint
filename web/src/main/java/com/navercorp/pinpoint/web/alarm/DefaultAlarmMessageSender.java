@@ -44,7 +44,7 @@ public class DefaultAlarmMessageSender implements AlarmMessageSender {
     }
 
     @Override
-    public void sendWebhook(AlarmChecker checker, int sequenceCount, StepExecution stepExecution) {
-        webhookSender.sendWebhook(checker, sequenceCount, stepExecution);
+    public void triggerWebhook(AlarmChecker checker, int sequenceCount, StepExecution stepExecution) {
+        webhookSender.triggerWebhook(checker, sequenceCount, stepExecution);
     }
 }
