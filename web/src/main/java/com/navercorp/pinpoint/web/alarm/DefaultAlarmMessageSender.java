@@ -30,9 +30,6 @@ public class DefaultAlarmMessageSender implements AlarmMessageSender {
     @Autowired(required = false)
     private SmsSender smsSender = new EmptySmsSender();
 
-    @Autowired
-    private WebhookSender webhookSender;
-
     @Override
     public void sendSms(AlarmChecker checker, int sequenceCount, StepExecution stepExecution) {
         smsSender.sendSms(checker, sequenceCount, stepExecution);
@@ -41,10 +38,5 @@ public class DefaultAlarmMessageSender implements AlarmMessageSender {
     @Override
     public void sendEmail(AlarmChecker checker, int sequenceCount, StepExecution stepExecution) {
         mailSender.sendEmail(checker, sequenceCount, stepExecution);
-    }
-
-    @Override
-    public void triggerWebhook(AlarmChecker checker, int sequenceCount, StepExecution stepExecution) {
-        webhookSender.triggerWebhook(checker, sequenceCount, stepExecution);
     }
 }

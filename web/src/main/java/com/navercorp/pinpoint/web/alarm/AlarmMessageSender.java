@@ -25,5 +25,4 @@ import org.springframework.batch.core.StepExecution;
 public interface AlarmMessageSender {
     void sendSms(AlarmChecker checker, int sequenceCount, StepExecution stepExecution);
     void sendEmail(AlarmChecker checker, int sequenceCount, StepExecution stepExecution);
-    void triggerWebhook(AlarmChecker checker, int sequenceCount, StepExecution stepExecution);
 }

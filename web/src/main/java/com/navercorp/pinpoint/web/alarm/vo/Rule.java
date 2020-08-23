@@ -29,7 +29,6 @@ public class Rule {
     private String userGroupId;
     private boolean smsSend;
     private boolean emailSend;
-    private boolean webhookSend;
     private String notes;
 
     public Rule() {
@@ -132,9 +131,5 @@ public class Rule {
         sb.append(", notes='").append(notes).append('\'');
         sb.append('}');
         return sb.toString();
-    }
-
-    public boolean isWebhookSend() {
-        return true;
     }
 }
