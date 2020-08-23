@@ -65,7 +65,7 @@ public abstract class AlarmChecker<T> {
         return rule.isWebhookSend();
     }
     
-    public String getuserGroupId() {
+    public String getUserGroupId() {
         return rule.getUserGroupId();
     }
     
