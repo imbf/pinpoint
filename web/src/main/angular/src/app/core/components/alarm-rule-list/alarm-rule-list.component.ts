@@ -16,11 +16,13 @@ export class AlarmRuleListComponent implements OnInit {
 
     constructor() {}
     ngOnInit() {}
-    getNotificationType(emailSend: boolean, smsSend: boolean): string {
-        return !emailSend && !smsSend ? 'None'
-            : emailSend && !smsSend ? 'Email'
-            : !emailSend && smsSend ? 'SMS'
-            : 'Email, SMS';
+    getNotificationType(emailSend: boolean, smsSend: boolean, webhookSend: boolean): string {
+        return !emailSend && !smsSend && !webhookSend ? 'None'
+            : emailSend && !smsSend && !webhookSend ? 'Email'
+            : !emailSend && smsSend && !webhookSend ? 'SMS'
+            : !emailSend && !smsSend && webhookSend ? 'Webhook'
+            : emailSend && smsSend && !webhookSend ? 'Email, SMS'
+            : 'Email, SMS, Webhook';
     }
 
     onRemove(ruleId: string): void {

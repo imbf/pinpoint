@@ -7,7 +7,8 @@ import { filterObj } from 'app/core/utils/util';
 export const enum NotificationType {
     ALL = 'all',
     EMAIL = 'email',
-    SMS = 'sms'
+    SMS = 'sms',
+    WEBHOOK = "webhook"
 }
 
 export interface IAlarmForm {
@@ -55,10 +56,11 @@ export class AlarmRuleCreateAndUpdateComponent implements OnInit, OnChanges {
         }
     }
 
-    private getTypeStr({smsSend, emailSend}: IAlarmRule): string {
-        return smsSend && emailSend ? 'all'
+    private getTypeStr({smsSend, emailSend, webhookSend}: IAlarmRule): string {
+        return smsSend && emailSend && webhookSend ? 'all'
             : smsSend ? 'sms'
             : emailSend ? 'email'
+            : webhookSend ? 'webhook'
             : 'none';
     }
 

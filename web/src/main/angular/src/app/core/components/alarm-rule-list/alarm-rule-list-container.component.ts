@@ -151,6 +151,7 @@ export class AlarmRuleListContainerComponent implements OnInit, OnDestroy {
             threshold,
             emailSend: type === NotificationType.ALL || type === NotificationType.EMAIL,
             smsSend: type === NotificationType.ALL || type === NotificationType.SMS,
+            webhookSend: type === NotificationType.ALL || type === NotificationType.WEBHOOK,
             notes
         }).subscribe((response: IAlarmRuleCreated | IServerErrorShortFormat) => {
             if (isThatType<IServerErrorShortFormat>(response, 'errorCode', 'errorMessage')) {
@@ -179,6 +180,7 @@ export class AlarmRuleListContainerComponent implements OnInit, OnDestroy {
             threshold,
             emailSend: type === NotificationType.ALL || type === NotificationType.EMAIL,
             smsSend: type === NotificationType.ALL || type === NotificationType.SMS,
+            webhookSend: type === NotificationType.ALL || type === NotificationType.WEBHOOK,
             notes
         }).subscribe((response: IAlarmRuleResponse | IServerErrorShortFormat) => {
             if (isThatType<IServerErrorShortFormat>(response, 'errorCode', 'errorMessage')) {
