@@ -8,7 +8,7 @@ export const enum NotificationType {
     ALL = 'all',
     EMAIL = 'email',
     SMS = 'sms',
-    WEBHOOK = "webhook"
+    WEBHOOK = 'webhook'
 }
 
 export interface IAlarmForm {
