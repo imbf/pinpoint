@@ -35,11 +35,6 @@ public class Rule {
     public Rule() {
     }
     
-    public Rule(String applicationId, String serviceType, String checkerName, Integer threshold, String userGroupId, boolean smsSend, boolean emailSend, boolean webhookSend, String notes) {
-        this(applicationId, serviceType, checkerName, threshold, userGroupId, smsSend, emailSend, notes);
-        this.webhookSend = webhookSend;
-    }
-    
     public Rule(String applicationId, String serviceType, String checkerName, Integer Threshold, String userGroupId, boolean smsSend, boolean emailSend, String notes) {
         this.applicationId = applicationId;
         this.serviceType = serviceType;
