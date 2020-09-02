@@ -44,8 +44,10 @@ public class AlarmServiceImpl implements AlarmService {
 
     @Override
     public String insertRule(Rule rule) {
-        return alarmDao.insertRule(rule);
-        
+        if (rule.isWebhookSend()) {
+            return alarmDao.insertRule(rule);
+        }
+        return alarmDao.insertRuleExceptWebhookSend(rule);
     }
 
     @Override
@@ -68,7 +70,12 @@ public class AlarmServiceImpl implements AlarmService {
 
     @Override
     public void updateRule(Rule rule) {
-        alarmDao.updateRule(rule);
+        if (rule.isWebhookSend()) {
+            alarmDao.updateRule(rule);
+        }
+        if (!rule.isWebhookSend()) {
+            alarmDao.updateRuleExceptWebhookSend(rule);
+        }
         alarmDao.deleteCheckerResult(rule.getRuleId());
     }
 
