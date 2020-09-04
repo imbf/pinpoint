@@ -10,7 +10,7 @@
     </insert>
 
     <insert id="insertRule" parameterType="Rule" useGeneratedKeys="true" keyProperty="ruleId">
-        INSERT INTO alarm_rule (application_id, service_type, checker_name, threshold, user_group_id, sms_send, email_send, webhook_send notes)
+        INSERT INTO alarm_rule (application_id, service_type, checker_name, threshold, user_group_id, sms_send, email_send, webhook_send, notes)
         VALUES
             (#{applicationId}, #{serviceType}, #{checkerName}, #{threshold}, #{userGroupId}, #{smsSend}, #{emailSend}, #{webhookSend}, #{notes})
     </insert>
