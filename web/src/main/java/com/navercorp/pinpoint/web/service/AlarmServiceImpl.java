@@ -72,8 +72,7 @@ public class AlarmServiceImpl implements AlarmService {
     public void updateRule(Rule rule) {
         if (rule.isWebhookSend()) {
             alarmDao.updateRule(rule);
-        }
-        if (!rule.isWebhookSend()) {
+        } else {
             alarmDao.updateRuleExceptWebhookSend(rule);
         }
         alarmDao.deleteCheckerResult(rule.getRuleId());
@@ -106,7 +105,7 @@ public class AlarmServiceImpl implements AlarmService {
             alarmDao.insertCheckerResult(new CheckerResult(checker.getRule().getRuleId(), checker.getRule().getApplicationId(), checker.getRule().getCheckerName(), false, 0, 1));
         }
         
-         
+        
     }
 
     @Override
