@@ -49,7 +49,7 @@ public class SpringWebhookSender implements WebhookSender {
         
         this.batchConfiguration = batchConfiguration;
         this.webhookReceiverUrl = batchConfiguration.getWebhookReceiverUrl();
-        this.webhookEnable = batchConfiguration.getWebhookEnable();
+        this.webhookEnable = batchConfiguration.isWebhookEnable();
         this.springRestTemplate = springRestTemplate;
     }
     
