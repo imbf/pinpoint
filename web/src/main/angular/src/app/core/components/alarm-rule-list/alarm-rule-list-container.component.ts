@@ -2,13 +2,7 @@ import { Component, OnInit, OnDestroy, ComponentFactoryResolver, Injector } from
 import { Subject, forkJoin } from 'rxjs';
 import { TranslateService } from '@ngx-translate/core';
 
-import {
-    TranslateReplaceService,
-    AnalyticsService,
-    TRACKED_EVENT_LIST,
-    DynamicPopupService,
-    SystemConfigurationDataService
-} from 'app/shared/services';
+import { TranslateReplaceService,  AnalyticsService,  TRACKED_EVENT_LIST,  DynamicPopupService,  SystemConfigurationDataService } from 'app/shared/services';
 import { UserGroupDataService, IUserGroup } from 'app/core/components/user-group/user-group-data.service';
 import { ApplicationListInteractionForConfigurationService } from 'app/core/components/application-list/application-list-interaction-for-configuration.service';
 import { NotificationType, IAlarmForm } from './alarm-rule-create-and-update.component';

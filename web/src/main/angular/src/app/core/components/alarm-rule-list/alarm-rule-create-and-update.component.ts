@@ -8,7 +8,7 @@ export const enum NotificationType {
     ALL = 'all',
     EMAIL = 'email',
     SMS = 'sms',
-    WEBHOOK = "webhook"
+    WEBHOOK = 'webhook'
 }
 
 export interface IAlarmForm {
@@ -60,7 +60,6 @@ export class AlarmRuleCreateAndUpdateComponent implements OnInit, OnChanges {
     private getTypeStr({smsSend, emailSend, webhookSend}: IAlarmRule): string {
         if (this.systemConfiguration.webhookEnable) {
             return smsSend && emailSend && webhookSend ? 'all'
-                : smsSend && emailSend ? 'sms, email'
                 : smsSend ? 'sms'
                 : emailSend ? 'email'
                 : webhookSend ? 'webhook'
