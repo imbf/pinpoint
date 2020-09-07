@@ -66,7 +66,7 @@ public class ConfigProperties {
     @Value("${websocket.allowedOrigins:#{null}}")
     private String webSocketAllowedOrigins;
     
-    @Value("${webhook.enable}")
+    @Value("${webhook.enable:false}")
     private boolean webhookEnable;
 
     public String getSecurityGuideUrl() {
