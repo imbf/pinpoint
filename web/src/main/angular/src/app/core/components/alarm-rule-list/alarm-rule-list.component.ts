@@ -18,20 +18,20 @@ export class AlarmRuleListComponent implements OnInit {
     constructor() {}
     ngOnInit() {}
     getNotificationType(emailSend: boolean, smsSend: boolean, webhookSend: boolean): string {
-        if (this.systemConfiguration.webhookEnable) {
-            return !emailSend && !smsSend && !webhookSend ? 'None'
-                : !emailSend && !smsSend && webhookSend ? 'Webhook'
-                : !emailSend && smsSend && !webhookSend ? 'SMS'
-                : emailSend && !smsSend && !webhookSend ? 'Email'
-                : emailSend && smsSend && !webhookSend ? 'Email, SMS'
-                : emailSend && !smsSend && webhookSend ? 'Email, Webhook'
-                : !emailSend && smsSend && webhookSend ? 'SMS, Webhook'
-                : 'Email, SMS, Webhook';
+        const notificationTypes = [];
+        if (emailSend) {
+            notificationTypes.push('Email');
         }
-        return !emailSend && !smsSend ? 'None'
-            : emailSend && !smsSend ? 'Email'
-            : !emailSend && smsSend ? 'SMS'
-            : 'Email, SMS';
+        if (smsSend) {
+            notificationTypes.push('SMS');
+        }
+        if (webhookSend && this.systemConfiguration.webhookEnable) {
+            notificationTypes.push('Webhook');
+        }
+        if (notificationTypes.length === 0) {
+            notificationTypes.push('None');
+        }
+        return notificationTypes.join(', ');
     }
 
     onRemove(ruleId: string): void {
