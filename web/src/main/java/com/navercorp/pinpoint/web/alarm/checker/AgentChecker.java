@@ -17,8 +17,8 @@
 package com.navercorp.pinpoint.web.alarm.checker;
 
 import com.navercorp.pinpoint.web.alarm.collector.DataCollector;
-import com.navercorp.pinpoint.web.alarm.vo.AgentCheckerValue;
-import com.navercorp.pinpoint.web.alarm.vo.CheckerValue;
+import com.navercorp.pinpoint.web.alarm.vo.AgentCheckerDetectedValue;
+import com.navercorp.pinpoint.web.alarm.vo.CheckerDetectedValue;
 import com.navercorp.pinpoint.web.alarm.vo.Rule;
 
 import java.util.HashMap;
@@ -31,8 +31,6 @@ import java.util.Map.Entry;
  * @author minwoo.jung
  */
 public abstract class AgentChecker<T> extends AlarmChecker<T> {
-    
-    private static final String AGENT_CHECKER_TYPE = "AgentChecker";
     
     protected final Map<String, T> detectedAgents = new HashMap<>();
 
@@ -85,13 +83,8 @@ public abstract class AgentChecker<T> extends AlarmChecker<T> {
     
     protected abstract Map<String, T> getAgentValues();
     
-    @Override
-    public CheckerValue getCheckerValue() {
-        return new AgentCheckerValue(unit, detectedAgents);
-    }
+    public abstract CheckerDetectedValue getCheckerDetectedValue();
     
-    @Override
-    public String getCheckerType() {
-        return AGENT_CHECKER_TYPE;
-    }
+    public abstract String getCheckerType();
+    
 }
