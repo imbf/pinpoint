@@ -18,11 +18,6 @@ public abstract class BooleanValueAgentChecker extends AgentChecker<Boolean>{
         return BooleanValueAgentChecker.class.getSimpleName();
     }
     
-    @Override
-    public CheckerDetectedValue getCheckerDetectedValue() {
-        return new AgentCheckerDetectedValue<>(unit, getAgentValues());
-    }
-    
     protected abstract Map<String, Boolean> getAgentValues();
     
 }

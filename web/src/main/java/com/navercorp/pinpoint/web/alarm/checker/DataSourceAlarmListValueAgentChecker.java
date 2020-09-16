@@ -16,11 +16,6 @@ public abstract class DataSourceAlarmListValueAgentChecker extends AgentChecker<
     }
     
     @Override
-    public CheckerDetectedValue getCheckerDetectedValue() {
-        return new AgentCheckerDetectedValue<>(unit, getAgentValues());
-    }
-    
-    @Override
     public String getCheckerType() {
         return DataSourceAlarmListValueAgentChecker.class.getSimpleName();
     }

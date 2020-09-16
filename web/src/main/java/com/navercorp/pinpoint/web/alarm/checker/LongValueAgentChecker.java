@@ -19,11 +19,6 @@ public abstract class LongValueAgentChecker extends AgentChecker<Long> {
     }
     
     @Override
-    public CheckerDetectedValue getCheckerDetectedValue() {
-        return new AgentCheckerDetectedValue<>(unit, getAgentValues());
-    }
-    
-    @Override
     public String getCheckerType() {
         return LongValueAgentChecker.class.getSimpleName();
     }

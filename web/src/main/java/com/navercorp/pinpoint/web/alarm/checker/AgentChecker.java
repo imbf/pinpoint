@@ -33,7 +33,7 @@ import java.util.Map.Entry;
 public abstract class AgentChecker<T> extends AlarmChecker<T> {
     
     protected final Map<String, T> detectedAgents = new HashMap<>();
-
+    
     protected AgentChecker(Rule rule, String unit, DataCollector dataCollector) {
         super(rule, unit, dataCollector);
     }
@@ -41,10 +41,10 @@ public abstract class AgentChecker<T> extends AlarmChecker<T> {
     @Override
     public void check() {
         dataCollector.collect();
-
+        
         Map<String, T> agents = getAgentValues();
         
-        for(Entry<String, T> agent : agents.entrySet()) {
+        for (Entry<String, T> agent : agents.entrySet()) {
             if (decideResult(agent.getValue())) {
                 detected = true;
                 detectedAgents.put(agent.getKey(), agent.getValue());
@@ -58,7 +58,7 @@ public abstract class AgentChecker<T> extends AlarmChecker<T> {
     protected T getDetectedValue() {
         throw new UnsupportedOperationException(this.getClass() + "is not support getDetectedValue function. you should use getAgentValues");
     }
-
+    
     public List<String> getSmsMessage() {
         List<String> messages = new LinkedList<>();
         
@@ -83,7 +83,10 @@ public abstract class AgentChecker<T> extends AlarmChecker<T> {
     
     protected abstract Map<String, T> getAgentValues();
     
-    public abstract CheckerDetectedValue getCheckerDetectedValue();
+    @Override
+    public CheckerDetectedValue getCheckerDetectedValue() {
+        return new AgentCheckerDetectedValue<>(unit, getAgentValues());
+    }
     
     public abstract String getCheckerType();
     
