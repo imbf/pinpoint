@@ -23,6 +23,4 @@ public abstract class LongValueAgentChecker extends AgentChecker<Long> {
         return LongValueAgentChecker.class.getSimpleName();
     }
     
-    protected abstract Map<String, Long> getAgentValues();
-    
 }

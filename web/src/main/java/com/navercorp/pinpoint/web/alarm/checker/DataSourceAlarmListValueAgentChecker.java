@@ -20,6 +20,4 @@ public abstract class DataSourceAlarmListValueAgentChecker extends AgentChecker<
         return DataSourceAlarmListValueAgentChecker.class.getSimpleName();
     }
     
-    protected abstract Map<String, List<DataSourceAlarmVO>> getAgentValues();
-    
 }
