@@ -93,7 +93,9 @@ public abstract class AlarmChecker<T> {
     
     protected abstract T getDetectedValue();
     
-    public abstract CheckerDetectedValue getCheckerDetectedValue();
+    public CheckerDetectedValue getCheckerDetectedValue() {
+        return new AlarmCheckerDetectedValue<>(unit, getDetectedValue());
+    };
     
     public abstract String getCheckerType();
     

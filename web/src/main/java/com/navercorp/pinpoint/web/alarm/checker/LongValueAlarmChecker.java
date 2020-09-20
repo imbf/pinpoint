@@ -40,11 +40,4 @@ public abstract class LongValueAlarmChecker extends AlarmChecker<Long> {
         return LongValueAlarmChecker.class.getSimpleName();
     }
     
-    @Override
-    public CheckerDetectedValue getCheckerDetectedValue() {
-        return new AlarmCheckerDetectedValue<>(unit, getDetectedValue());
-    }
-    
-    protected abstract Long getDetectedValue();
-    
 }
