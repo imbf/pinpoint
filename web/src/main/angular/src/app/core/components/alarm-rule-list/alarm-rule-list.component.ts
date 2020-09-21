@@ -9,7 +9,7 @@ import { IAlarmRule } from './alarm-rule-data.service';
 })
 export class AlarmRuleListComponent implements OnInit {
     @Input() alarmRuleList: IAlarmRule[];
-    @Input() systemConfiguration: ISystemConfiguration
+    @Input() webhookEnable: boolean
     @Output() outRemove = new EventEmitter<string>();
     @Output() outEdit = new EventEmitter<string>();
 
@@ -28,7 +28,7 @@ export class AlarmRuleListComponent implements OnInit {
             notificationTypes.push('SMS');
         }
 
-        if (webhookSend && this.systemConfiguration.webhookEnable) {
+        if (webhookSend && this.webhookEnable) {
             notificationTypes.push('Webhook');
         }
 
