@@ -30,7 +30,7 @@ export class AlarmRuleCreateAndUpdateComponent implements OnInit, OnChanges {
     @Input() editAlarm: IAlarmRule;
     @Input() i18nLabel: {[key: string]: string};
     @Input() i18nFormGuide: {[key: string]: IFormFieldErrorType};
-    @Input() systemConfiguration: ISystemConfiguration
+    @Input() webhookEnable: boolean;
     @Output() outUpdateAlarm = new EventEmitter<IAlarmForm>();
     @Output() outCreateAlarm = new EventEmitter<IAlarmForm>();
     @Output() outClose = new EventEmitter<void>();
@@ -58,14 +58,14 @@ export class AlarmRuleCreateAndUpdateComponent implements OnInit, OnChanges {
     }
 
     private getTypeStr({smsSend, emailSend, webhookSend}: IAlarmRule): string {
-        if (this.systemConfiguration.webhookEnable) {
+        if (this.webhookEnable) {
             return smsSend && emailSend && webhookSend ? 'all'
                 : smsSend ? 'sms'
                 : emailSend ? 'email'
                 : webhookSend ? 'webhook'
                 : 'none';
-
         }
+
         return smsSend && emailSend ? 'all'
             : smsSend ? 'sms'
             : emailSend ? 'email'

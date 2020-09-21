@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy, ComponentFactoryResolver, Injector } from
 import { Subject, forkJoin } from 'rxjs';
 import { TranslateService } from '@ngx-translate/core';
 
-import { TranslateReplaceService,  AnalyticsService,  TRACKED_EVENT_LIST,  DynamicPopupService,  SystemConfigurationDataService } from 'app/shared/services';
+import { TranslateReplaceService,  AnalyticsService,  TRACKED_EVENT_LIST,  DynamicPopupService,  WebAppSettingDataService } from 'app/shared/services';
 import { UserGroupDataService, IUserGroup } from 'app/core/components/user-group/user-group-data.service';
 import { ApplicationListInteractionForConfigurationService } from 'app/core/components/application-list/application-list-interaction-for-configuration.service';
 import { NotificationType, IAlarmForm } from './alarm-rule-create-and-update.component';
@@ -27,7 +27,7 @@ export class AlarmRuleListContainerComponent implements OnInit, OnDestroy {
     checkerList: string[];
     userGroupList: string[];
     alarmRuleList: IAlarmRule[] = [];
-    systemConfiguration: ISystemConfiguration;
+    webhookEnable: boolean;
     i18nLabel = {
         CHECKER_LABEL: '',
         USER_GROUP_LABEL: '',
@@ -52,7 +52,7 @@ export class AlarmRuleListContainerComponent implements OnInit, OnDestroy {
         private dynamicPopupService: DynamicPopupService,
         private componentFactoryResolver: ComponentFactoryResolver,
         private injector: Injector,
-        private systemConfigurationDataService: SystemConfigurationDataService
+        private webAppSettingDataService: WebAppSettingDataService
     ) {}
 
     ngOnInit() {
@@ -60,20 +60,14 @@ export class AlarmRuleListContainerComponent implements OnInit, OnDestroy {
         this.loadUserGroupList();
         this.bindToAppSelectionEvent();
         this.initI18NText();
-        this.loadSystemConfiguration();
+        this.webAppSettingDataService.isWebhookEnable().subscribe((webhookEnable: boolean) => {
+            this.webhookEnable = webhookEnable;
+        });
     }
 
     ngOnDestroy() {
         this.unsubscribe.next();
         this.unsubscribe.complete();
-    }
-
-    private loadSystemConfiguration(): void {
-        this.systemConfigurationDataService.getConfiguration().subscribe((result: ISystemConfiguration) => {
-            this.systemConfiguration = result;
-        }, (error: IServerErrorFormat) => {
-            this.errorMessage = error.exception.message;
-        });
     }
 
     private loadCheckerList(): void {
@@ -162,7 +156,7 @@ export class AlarmRuleListContainerComponent implements OnInit, OnDestroy {
             threshold,
             emailSend: type === NotificationType.ALL || type === NotificationType.EMAIL,
             smsSend: type === NotificationType.ALL || type === NotificationType.SMS,
-            webhookSend: (this.systemConfiguration.webhookEnable && type === NotificationType.ALL) || type === NotificationType.WEBHOOK,
+            webhookSend: (this.webhookEnable && type === NotificationType.ALL) || type === NotificationType.WEBHOOK,
             notes
         }).subscribe((response: IAlarmRuleCreated | IServerErrorShortFormat) => {
             if (isThatType<IServerErrorShortFormat>(response, 'errorCode', 'errorMessage')) {
@@ -191,7 +185,7 @@ export class AlarmRuleListContainerComponent implements OnInit, OnDestroy {
             threshold,
             emailSend: type === NotificationType.ALL || type === NotificationType.EMAIL,
             smsSend: type === NotificationType.ALL || type === NotificationType.SMS,
-            webhookSend: (this.systemConfiguration.webhookEnable && type === NotificationType.ALL) || type === NotificationType.WEBHOOK,
+            webhookSend: (this.webhookEnable && type === NotificationType.ALL) || type === NotificationType.WEBHOOK,
             notes
         }).subscribe((response: IAlarmRuleResponse | IServerErrorShortFormat) => {
             if (isThatType<IServerErrorShortFormat>(response, 'errorCode', 'errorMessage')) {

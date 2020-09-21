@@ -9,7 +9,7 @@ import { IAlarmRule } from './alarm-rule-data.service';
 })
 export class AlarmRuleListComponent implements OnInit {
     @Input() alarmRuleList: IAlarmRule[];
-    @Input() systemConfiguration: ISystemConfiguration
+    @Input() webhookEnable: boolean
     @Output() outRemove = new EventEmitter<string>();
     @Output() outEdit = new EventEmitter<string>();
 
@@ -19,18 +19,23 @@ export class AlarmRuleListComponent implements OnInit {
     ngOnInit() {}
     getNotificationType(emailSend: boolean, smsSend: boolean, webhookSend: boolean): string {
         const notificationTypes = [];
+
         if (emailSend) {
             notificationTypes.push('Email');
         }
+
         if (smsSend) {
             notificationTypes.push('SMS');
         }
-        if (webhookSend && this.systemConfiguration.webhookEnable) {
+
+        if (webhookSend && this.webhookEnable) {
             notificationTypes.push('Webhook');
         }
+
         if (notificationTypes.length === 0) {
             notificationTypes.push('None');
         }
+
         return notificationTypes.join(', ');
     }
 

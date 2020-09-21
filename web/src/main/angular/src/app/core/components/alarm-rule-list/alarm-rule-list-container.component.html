@@ -29,7 +29,7 @@
                     <ng-template #list>
                         <pp-alarm-rule-list
                             [alarmRuleList]="alarmRuleList"
-                            [systemConfiguration]="systemConfiguration"
+                            [webhookEnable]="webhookEnable"
                             (outRemove)="onRemoveAlarm($event)"
                             (outEdit)="onEditAlarm($event)">
                         </pp-alarm-rule-list>
@@ -46,7 +46,7 @@
         [editAlarm]="editAlarm"
         [i18nLabel]="i18nLabel"
         [i18nFormGuide]="i18nFormGuide"
-        [systemConfiguration]="systemConfiguration"
+        [webhookEnable]="webhookEnable"
         (outUpdateAlarm)="onUpdateAlarm($event)"
         (outCreateAlarm)="onCreateAlarm($event)"
         (outClose)="onClosePopup()"
