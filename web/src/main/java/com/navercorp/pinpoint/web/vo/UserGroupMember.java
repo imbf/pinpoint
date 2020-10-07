@@ -3,9 +3,6 @@ package com.navercorp.pinpoint.web.vo;
 public class UserGroupMember {
     
     private String number;
-    private int phoneCountryCode;
-    private String phoneNumber;
-    private String email;
     private String userGroupId;
     private String memberId;
     private String name;
@@ -59,30 +56,6 @@ public class UserGroupMember {
         this.department = department;
     }
     
-    public int getPhoneCountryCode() {
-        return phoneCountryCode;
-    }
-    
-    public void setPhoneCountryCode(int phoneCountryCode) {
-        this.phoneCountryCode = phoneCountryCode;
-    }
-    
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
-    
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
-    
-    public String getEmail() {
-        return email;
-    }
-    
-    public void setEmail(String email) {
-        this.email = email;
-    }
-    
     @Override
     public String toString() {
         return "UserGroupMember{" +
@@ -91,9 +64,6 @@ public class UserGroupMember {
             ", memberId='" + memberId + '\'' +
             ", name='" + name + '\'' +
             ", department='" + department + '\'' +
-            ", phoneCountryCode='" + phoneCountryCode + '\'' +
-            ", phoneNumber='" + phoneNumber + '\'' +
-            ", email='" + email + '\'' +
             '}';
     }
 }

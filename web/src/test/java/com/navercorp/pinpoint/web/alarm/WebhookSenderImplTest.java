@@ -4,10 +4,10 @@ import com.navercorp.pinpoint.web.alarm.checker.AlarmChecker;
 import com.navercorp.pinpoint.web.alarm.checker.SlowCountToCalleeChecker;
 import com.navercorp.pinpoint.web.alarm.vo.AlarmCheckerDetectedValue;
 import com.navercorp.pinpoint.web.alarm.vo.Rule;
-import com.navercorp.pinpoint.web.alarm.vo.sender.WebhookPayload;
+import com.navercorp.pinpoint.web.alarm.vo.sender.payload.WebhookPayload;
 import com.navercorp.pinpoint.web.batch.BatchConfiguration;
-import com.navercorp.pinpoint.web.service.UserGroupService;
-import com.navercorp.pinpoint.web.vo.UserGroupMember;
+import com.navercorp.pinpoint.web.service.UserService;
+import com.navercorp.pinpoint.web.vo.User;
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
@@ -34,14 +34,14 @@ public class WebhookSenderImplTest {
     WebhookSenderImpl sender;
 
     @Mock BatchConfiguration batchConfiguration;
-    @Mock UserGroupService userGroupService;
+    @Mock UserService userService;
     
     @Mock RestTemplate restTemplate;
 
     @Test
     public void constructorRequiresNotNullTest() throws Exception {
         try {
-            new WebhookSenderImpl(null , userGroupService,  restTemplate);
+            new WebhookSenderImpl(null , userService,  restTemplate);
             fail();
         } catch(NullPointerException npe) {
             // pass
@@ -53,13 +53,13 @@ public class WebhookSenderImplTest {
             // pass
         }
         try {
-            new WebhookSenderImpl(new BatchConfiguration(), userGroupService, restTemplate);
+            new WebhookSenderImpl(new BatchConfiguration(), userService, restTemplate);
             fail();
         } catch (NullPointerException npe) {
             // pass
         }
         try {
-            new WebhookSenderImpl(null, userGroupService, null);
+            new WebhookSenderImpl(null, userService, null);
             fail();
         } catch (NullPointerException npe) {
             // pass
@@ -71,7 +71,7 @@ public class WebhookSenderImplTest {
         // given
         BatchConfiguration configurationStub = getConfigurationStub(false);
         RestTemplate restTemplateStub = getRestTemplateStubSuccessToSend();
-        UserGroupService userGroupServiceStub = getUserGroupServiceStub();
+        UserService userGroupServiceStub = getUserServiceStub();
 
         sender = new WebhookSenderImpl(configurationStub, userGroupServiceStub, restTemplateStub);
 
@@ -88,7 +88,7 @@ public class WebhookSenderImplTest {
         // given
         BatchConfiguration configurationStub = getConfigurationStub(true);
         RestTemplate restTemplateStub = getRestTemplateStubSuccessToSend();
-        UserGroupService userGroupServiceStub = getUserGroupServiceStub();
+        UserService userGroupServiceStub = getUserServiceStub();
 
         sender = new WebhookSenderImpl(configurationStub, userGroupServiceStub, restTemplateStub);
         
@@ -106,7 +106,7 @@ public class WebhookSenderImplTest {
         // given
         BatchConfiguration configurationStub = getConfigurationStub(true);
         RestTemplate restTemplateStub = getRestTemplateStubSuccessToSend();
-        UserGroupService userGroupServiceStub = getUserGroupServiceStub();
+        UserService userGroupServiceStub = getUserServiceStub();
 
         sender = new WebhookSenderImpl(configurationStub, userGroupServiceStub, restTemplateStub);
     
@@ -151,14 +151,14 @@ public class WebhookSenderImplTest {
         return batchConfigurationMock;
     }
     
-    private UserGroupService getUserGroupServiceStub() {
-        UserGroupService mock = mock(UserGroupService.class);
-        UserGroupMember member1 = new UserGroupMember(USER_GROUP_ID, "member1");
-        UserGroupMember member2 = new UserGroupMember(USER_GROUP_ID, "member2");
-        UserGroupMember member3 = new UserGroupMember(USER_GROUP_ID, "member3");
-        List<UserGroupMember> testUserGroupMember = Arrays.asList(member1, member2, member3);
+    private UserService getUserServiceStub() {
+        UserService mock = mock(UserService.class);
+        User member1 = new User(USER_GROUP_ID, "member1", "dep1", 82, "1012345678", "pinpoint1@naver.com");
+        User member2 = new User(USER_GROUP_ID, "member2", "dep2", 82, "1045678901", "pinpoint2@naver.com");
+        User member3 = new User(USER_GROUP_ID, "member3", "dep3", 82, "1023456789", "pinpoint3@naver.com");
+        List<User> testUserGroupMember = Arrays.asList(member1, member2, member3);
 
-        when(mock.selectMember(USER_GROUP_ID)).thenReturn(testUserGroupMember);
+        when(mock.selectUserByUserGroupId(USER_GROUP_ID)).thenReturn(testUserGroupMember);
 
         return mock;
     }

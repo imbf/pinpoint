@@ -1,6 +1,4 @@
-package com.navercorp.pinpoint.web.alarm.vo.sender;
-
-import com.navercorp.pinpoint.web.vo.UserGroupMember;
+package com.navercorp.pinpoint.web.alarm.vo.sender.payload;
 
 public class UserMember {
 
@@ -14,15 +12,13 @@ public class UserMember {
     public UserMember() {
     }
     
-    public static UserMember from(UserGroupMember userGroupMember) {
-        UserMember userMember = new UserMember();
-        userMember.memberId = userGroupMember.getMemberId();
-        userMember.name = userGroupMember.getName();
-        userMember.email = userGroupMember.getEmail();
-        userMember.department = userGroupMember.getDepartment();
-        userMember.phoneNumber = userGroupMember.getPhoneNumber();
-        userMember.phoneCountryCode = userGroupMember.getPhoneCountryCode();
-        return userMember;
+    public UserMember(String memberId, String name, String email, String department, String phoneNumber, int phoneCountryCode) {
+        this.memberId = memberId;
+        this.name = name;
+        this.email = email;
+        this.department = department;
+        this.phoneNumber = phoneNumber;
+        this.phoneCountryCode = phoneCountryCode;
     }
     
     public String getMemberId() {

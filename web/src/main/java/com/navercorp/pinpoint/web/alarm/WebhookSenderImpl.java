@@ -16,11 +16,11 @@
 package com.navercorp.pinpoint.web.alarm;
 
 import com.navercorp.pinpoint.web.alarm.checker.AlarmChecker;
-import com.navercorp.pinpoint.web.alarm.vo.sender.UserGroupMemberPayload;
-import com.navercorp.pinpoint.web.alarm.vo.sender.UserMember;
-import com.navercorp.pinpoint.web.alarm.vo.sender.WebhookPayload;
+import com.navercorp.pinpoint.web.alarm.vo.sender.payload.UserGroup;
+import com.navercorp.pinpoint.web.alarm.vo.sender.payload.UserMember;
+import com.navercorp.pinpoint.web.alarm.vo.sender.payload.WebhookPayload;
 import com.navercorp.pinpoint.web.batch.BatchConfiguration;
-import com.navercorp.pinpoint.web.service.UserGroupService;
+import com.navercorp.pinpoint.web.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.batch.core.StepExecution;
@@ -39,17 +39,17 @@ public class WebhookSenderImpl implements WebhookSender {
     
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
     private final BatchConfiguration batchConfiguration;
-    private final UserGroupService userGroupService;
+    private final UserService userService;
     private final RestTemplate springRestTemplate;
     private final String webhookReceiverUrl;
     private final boolean webhookEnable;
     
-    public WebhookSenderImpl(BatchConfiguration batchConfiguration, UserGroupService userGroupService, RestTemplate springRestTemplate) {
+    public WebhookSenderImpl(BatchConfiguration batchConfiguration, UserService userService, RestTemplate springRestTemplate) {
         Objects.requireNonNull(batchConfiguration, "batchConfiguration");
         Objects.requireNonNull(springRestTemplate, "springRestTemplate");
-        Objects.requireNonNull(userGroupService, "userGroupService");
+        Objects.requireNonNull(userService, "userService");
         
-        this.userGroupService = userGroupService;
+        this.userService = userService;
         this.batchConfiguration = batchConfiguration;
         this.webhookReceiverUrl = batchConfiguration.getWebhookReceiverUrl();
         this.webhookEnable = batchConfiguration.isWebhookEnable();
@@ -67,14 +67,14 @@ public class WebhookSenderImpl implements WebhookSender {
         try {
             String userGroupId = checker.getRule().getUserGroupId();
             
-            List<UserMember> userMembers = userGroupService.selectMember(userGroupId)
+            List<UserMember> userMembers = userService.selectUserByUserGroupId(userGroupId)
                     .stream()
-                    .map(UserMember::from)
+                    .map(user -> new UserMember(user.getUserId(), user.getName(), user.getEmail(), user.getDepartment(), user.getPhoneNumber(), user.getPhoneCountryCode()))
                     .collect(Collectors.toList());
 
-            UserGroupMemberPayload userGroupMemberPayload = new UserGroupMemberPayload(userGroupId, userMembers);
+            UserGroup userGroup = new UserGroup(userGroupId, userMembers);
             
-            WebhookPayload webhookPayload = new WebhookPayload(checker, batchConfiguration, sequenceCount, userGroupMemberPayload);
+            WebhookPayload webhookPayload = new WebhookPayload(checker, batchConfiguration, sequenceCount, userGroup);
             HttpHeaders httpHeaders = new HttpHeaders();
             httpHeaders.setContentType(MediaType.APPLICATION_JSON);
             

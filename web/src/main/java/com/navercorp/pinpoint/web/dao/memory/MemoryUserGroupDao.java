@@ -137,9 +137,6 @@ public class MemoryUserGroupDao implements UserGroupDao {
                 User user = userDao.selectUserByUserId(member.getMemberId());
                 member.setName(user.getName());
                 member.setDepartment(user.getDepartment());
-                member.setEmail(user.getEmail());
-                member.setPhoneNumber(user.getPhoneNumber());
-                member.setPhoneCountryCode(user.getPhoneCountryCode());
                 userGroupMemberList.add(member);
             }
         }

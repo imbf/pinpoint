@@ -15,7 +15,6 @@
  */
 package com.navercorp.pinpoint.web.service;
 
-import com.navercorp.pinpoint.common.util.CollectionUtils;
 import com.navercorp.pinpoint.web.dao.UserDao;
 import com.navercorp.pinpoint.web.util.DefaultUserInfoDecoder;
 import com.navercorp.pinpoint.web.util.DefaultUserInfoEncoder;
@@ -28,7 +27,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -84,7 +82,14 @@ public class UserServiceImpl implements UserService {
         User user = userDao.selectUserByUserId(userId);
         return userInfoDecoder.decodeUserInfo(user);
     }
-
+    
+    @Override
+    @Transactional(readOnly = true)
+    public List<User> selectUserByUserGroupId(String userGroupId) {
+        List<User> userList = userDao.selectUserByUserGroupId(userGroupId);
+        return userInfoDecoder.decodeUserInfoList(userList);
+    }
+    
     @Override
     @Transactional(readOnly = true)
     public List<User> selectUserByUserName(String userName) {

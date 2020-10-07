@@ -1,13 +1,16 @@
-package com.navercorp.pinpoint.web.alarm.vo.sender;
+package com.navercorp.pinpoint.web.alarm.vo.sender.payload;
+
+import org.apache.ibatis.type.Alias;
 
 import java.util.List;
 
-public class UserGroupMemberPayload {
+@Alias(value = "UserGroupPayload")
+public class UserGroup {
     
     private String userGroupId;
     private List<UserMember> userGroupMembers;
     
-    public UserGroupMemberPayload(String userGroupId, List<UserMember> userGroupMembers) {
+    public UserGroup(String userGroupId, List<UserMember> userGroupMembers) {
         this.userGroupId = userGroupId;
         this.userGroupMembers = userGroupMembers;
     }

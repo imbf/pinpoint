@@ -38,6 +38,14 @@
         WHERE user_id = #{userId}
     </select>
 
+    <select id="selectUserByUserGroupId" resultType="User">
+        SELECT *
+        FROM puser a
+        INNER JOIN user_group_member b ON a.user_id = b.member_id
+        WHERE b.user_group_id = #{userGroupId}
+        ORDER BY a.department, a.name
+    </select>
+
     <select id="selectUserByDepartment" resultType="User">
         SELECT *
         FROM puser
