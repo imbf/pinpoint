@@ -17,14 +17,12 @@
 package com.navercorp.pinpoint.web.alarm.checker;
 
 import com.navercorp.pinpoint.web.alarm.collector.DataCollector;
-import com.navercorp.pinpoint.web.alarm.vo.AgentCheckerDetectedValue;
-import com.navercorp.pinpoint.web.alarm.vo.CheckerDetectedValue;
+import com.navercorp.pinpoint.web.alarm.vo.sender.payload.AgentCheckerDetectedValue;
+import com.navercorp.pinpoint.web.alarm.vo.sender.payload.CheckerDetectedValue;
 import com.navercorp.pinpoint.web.alarm.vo.Rule;
+import com.navercorp.pinpoint.web.alarm.vo.sender.payload.DetectedAgent;
 
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.Map.Entry;
 
 /**
@@ -85,7 +83,13 @@ public abstract class AgentChecker<T> extends AlarmChecker<T> {
     
     @Override
     public CheckerDetectedValue getCheckerDetectedValue() {
-        return new AgentCheckerDetectedValue<>(unit, getAgentValues());
+        List<DetectedAgent<T>> detectedAgents = new ArrayList<>();
+
+        for (Map.Entry<String, T> entry : this.detectedAgents.entrySet()) {
+            detectedAgents.add(new DetectedAgent(entry.getKey(), entry.getValue()));
+        }
+
+        return new AgentCheckerDetectedValue<>(detectedAgents);
     }
     
     public abstract String getCheckerType();

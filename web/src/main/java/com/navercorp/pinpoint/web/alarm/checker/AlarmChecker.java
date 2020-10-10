@@ -18,8 +18,8 @@ package com.navercorp.pinpoint.web.alarm.checker;
 
 
 import com.navercorp.pinpoint.web.alarm.collector.DataCollector;
-import com.navercorp.pinpoint.web.alarm.vo.AlarmCheckerDetectedValue;
-import com.navercorp.pinpoint.web.alarm.vo.CheckerDetectedValue;
+import com.navercorp.pinpoint.web.alarm.vo.sender.payload.AlarmCheckerDetectedValue;
+import com.navercorp.pinpoint.web.alarm.vo.sender.payload.CheckerDetectedValue;
 import com.navercorp.pinpoint.web.alarm.vo.Rule;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -94,8 +94,8 @@ public abstract class AlarmChecker<T> {
     protected abstract T getDetectedValue();
     
     public CheckerDetectedValue getCheckerDetectedValue() {
-        return new AlarmCheckerDetectedValue<>(unit, getDetectedValue());
-    };
+        return new AlarmCheckerDetectedValue<>(getDetectedValue());
+    }
     
     public abstract String getCheckerType();
     

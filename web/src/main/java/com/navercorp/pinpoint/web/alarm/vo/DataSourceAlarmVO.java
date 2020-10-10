@@ -16,6 +16,8 @@
 
 package com.navercorp.pinpoint.web.alarm.vo;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 /**
  * @author Taejin Koo
  */
@@ -30,7 +32,8 @@ public class DataSourceAlarmVO {
         this.databaseName = databaseName;
         this.connectionUsedRate = connectionUsedRate;
     }
-
+    
+    @JsonIgnore
     public int getId() {
         return id;
     }
