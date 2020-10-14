@@ -11,7 +11,6 @@ import com.navercorp.pinpoint.web.alarm.vo.sender.payload.WebhookPayload;
 import java.io.IOException;
 
 public class WebhookPayloadSerializer extends JsonSerializer<WebhookPayload> {
-    private static final String LONG_VALUE_ALARM_CHECKER = "LongValueAlarmChecker";
     
     @Override
     public void serialize(WebhookPayload webhookPayload, JsonGenerator jgen, SerializerProvider serializers) throws IOException {
@@ -22,13 +21,25 @@ public class WebhookPayloadSerializer extends JsonSerializer<WebhookPayload> {
         jgen.writeStringField("applicationId", webhookPayload.getApplicationId());
         jgen.writeStringField("serviceType", webhookPayload.getServiceType());
         jgen.writeStringField("checkerName", webhookPayload.getCheckerName());
-        jgen.writeStringField("checkerType", webhookPayload.getCheckerType());
+        
+        String checkerType = webhookPayload.getCheckerType();
+        jgen.writeStringField("checkerType", checkerType);
         jgen.writeObjectField("userGroup", webhookPayload.getUserGroup());
         
         CheckerDetectedValue checkerDetectedValue = webhookPayload.getCheckerDetectedValue();
-        if (webhookPayload.getCheckerType().equals(LONG_VALUE_ALARM_CHECKER)) {
+        if (checkerType.equals("LongValueAlarmChecker")) {
             jgen.writeObjectField("checkerDetectedValue", ((AlarmCheckerDetectedValue) checkerDetectedValue).getDetectedValue());
-        } else {
+        }
+        
+        if (checkerType.equals("LongValueAgentChecker")) {
+            jgen.writeObjectField("checkerDetectedValue", ((AgentCheckerDetectedValue) checkerDetectedValue).getDetectedAgents());
+        }
+        
+        if (checkerType.equals("BooleanValueAgentChecker")) {
+            jgen.writeObjectField("checkerDetectedValue", ((AgentCheckerDetectedValue) checkerDetectedValue).getDetectedAgents());
+        }
+        
+        if (checkerType.equals("DataSourceAlarmListValueAgentChecker")) {
             jgen.writeObjectField("checkerDetectedValue", ((AgentCheckerDetectedValue) checkerDetectedValue).getDetectedAgents());
         }
         

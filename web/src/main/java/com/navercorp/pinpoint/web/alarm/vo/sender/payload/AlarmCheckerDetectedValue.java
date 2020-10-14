@@ -1,6 +1,6 @@
 package com.navercorp.pinpoint.web.alarm.vo.sender.payload;
 
-public class AlarmCheckerDetectedValue<T> extends CheckerDetectedValue {
+public class AlarmCheckerDetectedValue<T> implements CheckerDetectedValue {
     
     private T detectedValue;
     
