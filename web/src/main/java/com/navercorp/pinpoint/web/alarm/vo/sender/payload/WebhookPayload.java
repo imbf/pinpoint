@@ -1,37 +1,39 @@
 package com.navercorp.pinpoint.web.alarm.vo.sender.payload;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.navercorp.pinpoint.web.alarm.checker.AlarmChecker;
-import com.navercorp.pinpoint.web.alarm.vo.CheckerDetectedValue;
 import com.navercorp.pinpoint.web.batch.BatchConfiguration;
+import com.navercorp.pinpoint.web.view.WebhookPayloadSerializer;
 
+@JsonSerialize(using = WebhookPayloadSerializer.class)
 public class WebhookPayload {
     
     private String pinpointUrl;
     private String batchEnv;
-    private Integer sequenceCount;
     private String applicationId;
+    private String serviceType;
     private String checkerName;
-    private Integer threshold;
-    private String notes;
     private String checkerType;
     private UserGroup userGroup;
     private CheckerDetectedValue checkerDetectedValue;
+    private String unit;
+    private Integer threshold;
+    private String notes;
+    private Integer sequenceCount;
     
     public WebhookPayload(AlarmChecker checker, BatchConfiguration batchConfiguration, int sequenceCount, UserGroup userGroup) {
         this.pinpointUrl = batchConfiguration.getPinpointUrl();
         this.batchEnv = batchConfiguration.getBatchEnv();
-        this.sequenceCount = sequenceCount;
         this.applicationId = checker.getRule().getApplicationId();
+        this.serviceType = checker.getRule().getServiceType();
         this.checkerName = checker.getRule().getCheckerName();
-        this.threshold = checker.getRule().getThreshold();
-        this.notes = checker.getRule().getNotes();
         this.checkerType = checker.getCheckerType();
         this.userGroup = userGroup;
         this.checkerDetectedValue = checker.getCheckerDetectedValue();
-    }
-    
-    public UserGroup getUserGroup() {
-        return userGroup;
+        this.unit = checker.getUnit();
+        this.threshold = checker.getRule().getThreshold();
+        this.notes = checker.getRule().getNotes();
+        this.sequenceCount = sequenceCount;
     }
     
     public String getPinpointUrl() {
@@ -42,16 +44,32 @@ public class WebhookPayload {
         return batchEnv;
     }
     
-    public Integer getSequenceCount() {
-        return sequenceCount;
-    }
-    
     public String getApplicationId() {
         return applicationId;
     }
     
+    public String getServiceType() {
+        return serviceType;
+    }
+    
     public String getCheckerName() {
         return checkerName;
+    }
+    
+    public String getCheckerType() {
+        return checkerType;
+    }
+    
+    public UserGroup getUserGroup() {
+        return userGroup;
+    }
+    
+    public CheckerDetectedValue getCheckerDetectedValue() {
+        return checkerDetectedValue;
+    }
+    
+    public String getUnit() {
+        return unit;
     }
     
     public Integer getThreshold() {
@@ -62,11 +80,7 @@ public class WebhookPayload {
         return notes;
     }
     
-    public String getCheckerType() {
-        return checkerType;
-    }
-    
-    public CheckerDetectedValue getCheckerDetectedValue() {
-        return checkerDetectedValue;
+    public Integer getSequenceCount() {
+        return sequenceCount;
     }
 }

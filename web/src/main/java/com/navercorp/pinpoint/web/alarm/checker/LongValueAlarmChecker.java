@@ -17,8 +17,6 @@
 package com.navercorp.pinpoint.web.alarm.checker;
 
 import com.navercorp.pinpoint.web.alarm.collector.DataCollector;
-import com.navercorp.pinpoint.web.alarm.vo.AlarmCheckerDetectedValue;
-import com.navercorp.pinpoint.web.alarm.vo.CheckerDetectedValue;
 import com.navercorp.pinpoint.web.alarm.vo.Rule;
 
 /**

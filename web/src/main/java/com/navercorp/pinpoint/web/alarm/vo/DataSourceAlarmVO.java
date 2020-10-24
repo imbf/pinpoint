@@ -16,9 +16,13 @@
 
 package com.navercorp.pinpoint.web.alarm.vo;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.navercorp.pinpoint.web.view.DataSourceAlarmVOSerializer;
+
 /**
  * @author Taejin Koo
  */
+@JsonSerialize(using = DataSourceAlarmVOSerializer.class)
 public class DataSourceAlarmVO {
 
     private final int id;
@@ -30,7 +34,7 @@ public class DataSourceAlarmVO {
         this.databaseName = databaseName;
         this.connectionUsedRate = connectionUsedRate;
     }
-
+    
     public int getId() {
         return id;
     }

@@ -2,7 +2,7 @@ package com.navercorp.pinpoint.web.alarm.vo.sender.payload;
 
 public class UserMember {
 
-    private String memberId;
+    private String id;
     private String name;
     private String email;
     private String department;
@@ -12,8 +12,8 @@ public class UserMember {
     public UserMember() {
     }
     
-    public UserMember(String memberId, String name, String email, String department, String phoneNumber, int phoneCountryCode) {
-        this.memberId = memberId;
+    public UserMember(String id, String name, String email, String department, String phoneNumber, int phoneCountryCode) {
+        this.id = id;
         this.name = name;
         this.email = email;
         this.department = department;
@@ -21,8 +21,8 @@ public class UserMember {
         this.phoneCountryCode = phoneCountryCode;
     }
     
-    public String getMemberId() {
-        return memberId;
+    public String getId() {
+        return id;
     }
     
     public String getName() {
