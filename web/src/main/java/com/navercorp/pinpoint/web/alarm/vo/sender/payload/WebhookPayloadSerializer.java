@@ -1,4 +1,4 @@
-package com.navercorp.pinpoint.web.view;
+package com.navercorp.pinpoint.web.alarm.vo.sender.payload;
 
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.JsonSerializer;
