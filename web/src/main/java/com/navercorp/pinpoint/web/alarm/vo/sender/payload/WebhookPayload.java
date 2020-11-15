@@ -3,7 +3,6 @@ package com.navercorp.pinpoint.web.alarm.vo.sender.payload;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.navercorp.pinpoint.web.alarm.checker.AlarmChecker;
 import com.navercorp.pinpoint.web.batch.BatchConfiguration;
-import com.navercorp.pinpoint.web.view.WebhookPayloadSerializer;
 
 @JsonSerialize(using = WebhookPayloadSerializer.class)
 public class WebhookPayload {
