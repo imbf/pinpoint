@@ -17,6 +17,8 @@ These conditions are (by default) checked every 3 minutes by a background batch 
 > If an email/sms is sent everytime when a threshold is exceeded, we felt that alarm message would be spammable.<br/>
 > Therefore we decided to gradually increase the transmission frequency for alarms.<br/>
 > ex) If an alarm occurs continuously, transmission frequency is increased by a factor of two. 3 min -> 6min -> 12min -> 24min
+>
+> add test text in doc/alarm.md
 
 
 ## 1. User Guide
