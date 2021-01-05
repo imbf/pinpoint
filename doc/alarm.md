@@ -23,78 +23,7 @@ These conditions are (by default) checked every 3 minutes by a background batch 
 
 ## 1. User Guide
 
-1) Configuration menu
-![alarm_figure01.gif](images/alarm/alarm_figure01.gif)
-
-2) Registering users
-![alarm_figure02.gif](images/alarm/alarm_figure02.gif)
-
-3) Creating user groups
-![alarm_figure03.gif](images/alarm/alarm_figure03.gif)
-
-4) Adding users to user group
-![alarm_figure04.gif](images/alarm/alarm_figure04.gif)
-
-5) Setting alarm rules
-![alarm_figure05.gif](images/alarm/alarm_figure05.gif)
-
-**Alarm Rules**
-```
-SLOW COUNT
-   Triggered when the number of slow requests sent to the application exceeds the configured threshold.
-
-SLOW RATE
-   Triggered when the percentage(%) of slow requests sent to the application exceeds the configured threshold.
-
-ERROR COUNT
-   Triggered when the number of failed requests sent to the application exceeds the configured threshold.
-
-ERROR RATE
-   Triggered when the percentage(%) of failed requests sent to the application exceeds the configured threshold.
-
-TOTAL COUNT
-   Triggered when the number of all requests sent to the application exceeds the configured threshold.
-
-SLOW COUNT TO CALLEE
-   Triggered when the number of slow requests sent by the application exceeds the configured threshold.
-   You must specify the domain or the address(ip, port) in the configuration UI's "Note..." box 
-   ex) www.naver.com, 127.0.0.1:8080
-
-SLOW RATE TO CALLEE
-   Triggered when the percentage(%) of slow requests sent by the application exceeds the configured threshold.
-   You must specify the domain or the address(ip, port) in the configuration UI's "Note..." box 
-   ex) www.naver.com, 127.0.0.1:8080
-
-ERROR COUNT TO CALLEE
-   Triggered when the number of failed requests sent by the application exceeds the configured threshold.
-   You must specify the domain or the address(ip, port) in the configuration UI's "Note..." box 
-   ex) www.naver.com, 127.0.0.1:8080
-
-ERROR RATE TO CALLEE
-   Triggered when the percentage(%) of failed requests sent by the application exceeds the configured threshold.
-   You must specify the domain or the address(ip, port) in the configuration UI's "Note..." box 
-   ex) www.naver.com, 127.0.0.1:8080
-
-TOTAL COUNT TO CALLEE
-   Triggered when the number of all requests sent by the application exceeds the configured threshold.
-   You must specify the domain or the address(ip, port) in the configuration UI's "Note..." box 
-   ex) www.naver.com, 127.0.0.1:8080
-
-HEAP USAGE RATE
-   Triggered when the application's heap usage(%) exceeds the configured threshold.
-
-JVM CPU USAGE RATE
-   Triggered when the application's CPU usage(%) exceeds the configured threshold.
-
-SYSTEM CPU USAGE RATE
-   Sends an alarm when the application's CPU usage(%) exceeds the configured threshold.
-
-DATASOURCE CONNECTION USAGE RATE
-   Triggered when the application's DataSource connection usage(%) exceeds the configured threshold.
-   
-FILE DESCRIPTOR COUNT
-   Sends an alarm when the number of open file descriptors exceeds the configured threshold.
-```
+Delete User Guide Content in doc/alarm.md
 
 
 ## 2. Configuration & Implementation
